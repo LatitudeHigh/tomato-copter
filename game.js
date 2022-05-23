@@ -35,7 +35,10 @@ var powerupinterval;
 var answeredCorrectly = false;
 var homeScreen = true;
 
-// this is what happens when you push down on the mouse.
+
+
+
+
 function start() {
     displayInstructions();
     mouseClickMethod(startGame);
@@ -56,7 +59,7 @@ function startGame() {
 }
 
 function setup() {
-	background = new WebImage("https://codehs.com/uploads/694a30b7b27d3bafab14977580118425");
+	background = new WebImage("https://codehs.com/uploads/580b879b31f5914dd33cf685163407c2");
 	background.setPosition(0, 0);
 	background.setSize(getWidth(), getHeight());
 	add(background);
@@ -82,6 +85,7 @@ function updateScore() {
 	score.setText(points);
 }
 
+
 function game() {
 	updateScore();
 	if (hitWall()) {
@@ -96,12 +100,13 @@ function game() {
 		  	return;
       } else if (collider.getColor() == Color.RED) {
         // do what yozzu want to do for a red block
-        var firstnum = Randomizer.nextInt(0, 100);
-        var secondnum = Randomizer.nextInt(0, 100);
+        var firstnum = Randomizer.nextInt(0, 30);
+        var secondnum = Randomizer.nextInt(0, 30);
         guess = parseInt(prompt("What is " + firstnum + " x " + secondnum + "?"));
         var answer = firstnum * secondnum;
         if (guess == answer) {
-          
+        //This gets rid of the collider
+        remove(collider);
         }
       } else if (collider.getColor() == Color.BLUE) {
         prompt(parseInt("Ask math question here"))
@@ -133,6 +138,7 @@ function onMouseDown(e) {
   if (e.keyCode == Keyboard.UP) {
         clicking = true;
     }
+  
 }
 
 function onMouseUp(e) {
@@ -189,7 +195,9 @@ function lose() {
 					 getHeight()/2);
 	add(text);
 
-  var retry = new Rectangle(100,50);
+  var textTwo = new Text("Retry");
+  textTwo.setColor(Color.black)
+  var rect = new Rectangle(100,50);
     retry.setPosition((getWidth()-100)/2,(getHeight()/2)+10);
     retry.setColor(Color.red);
   add(retry)
@@ -219,7 +227,7 @@ function getCollider() {
 	var bottomRight = getElementAt(copter.getX() + copter.getWidth() + 1,
 									copter.getY() + copter.getHeight() + 1);
 	if (bottomRight != null && bottomRight != background) {
-		return bottomRight;
+		return bottomRight; 
 	}
 	
 	return null;
@@ -292,6 +300,12 @@ function displayInstructions(){
   backg.setSize(getWidth(), getHeight());
   backg.setPosition(0,0);
   add(backg);
+  
+  var rect = new Rectangle(getWidth(), 45);
+  rect.setPosition(0,220);
+  rect.setColor(Color.BLACK);
+  add(rect);
+  
   var instructions = new Text ("Press up arrow to make tomato avoid obstacles!");
   instructions.setColor(Color.WHITE);
   instructions.setPosition(
